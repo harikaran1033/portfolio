@@ -57,20 +57,21 @@ const About = ({ openWindows, setOpenWindows }) => {
   ];
 
   return (
-    <div className="relative w-screen h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 pt-20 pl-6 overflow-hidden justify-center items-center">
+    <div className="relative w-screen h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 pt-20 pl-6 overflow-hidden">
 
       {/* Empty state */}
       {!openWindows.about?.length && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x shadow-lg">
-            Tap or click a folder to explore About Me!
+            Click a folder to explore About Me!
           </h1>
           <p className="mt-3 text-gray-300 text-sm md:text-base animate-pulse">
-            Click and see live demos and drafts
+            Works on desktop & mobile
           </p>
         </div>
       )}
 
+      {/* Desktop Icons */}
       <div className="w-full h-full">
         <DesktopIcon icon={homeIcon} label="My Info" onActivate={() => addFolder("about","MyInfo")} defaultPosition={{ x: 20, y: 20 }} />
         <DesktopIcon icon={manIcon} label="Education" onActivate={() => addFolder("about","Education")} defaultPosition={{ x: 20, y: 120 }} />
@@ -78,7 +79,7 @@ const About = ({ openWindows, setOpenWindows }) => {
         <DesktopIcon icon={callIcon} label="What I DO" onActivate={() => addFolder("about","description")} defaultPosition={{ x: 20, y: 320 }} />
       </div>
 
-      {/* Windows */}
+      {/* My Info Window */}
       {openWindows.about?.includes("MyInfo") && (
         <DragWindow title="My Info" closeFolder={() => closeFolder("about","MyInfo")}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
@@ -100,6 +101,7 @@ const About = ({ openWindows, setOpenWindows }) => {
         </DragWindow>
       )}
 
+      {/* Education Window */}
       {openWindows.about?.includes("Education") && (
         <DragWindow title="Education" closeFolder={() => closeFolder("about","Education")}>
           <div className="flex flex-col gap-4">
@@ -115,6 +117,7 @@ const About = ({ openWindows, setOpenWindows }) => {
         </DragWindow>
       )}
 
+      {/* Skills Window */}
       {openWindows.about?.includes("Skills") && (
         <DragWindow title="Skills" closeFolder={() => closeFolder("about","Skills")}>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 p-3">
@@ -130,6 +133,7 @@ const About = ({ openWindows, setOpenWindows }) => {
         </DragWindow>
       )}
 
+      {/* Description Window */}
       {openWindows.about?.includes("description") && (
         <DragWindow title="What I Do" closeFolder={() => closeFolder("about","description")}>
           <div className="space-y-4 text-gray-900">
@@ -159,6 +163,7 @@ const About = ({ openWindows, setOpenWindows }) => {
           </div>
         </DragWindow>
       )}
+
     </div>
   );
 };
