@@ -5,13 +5,21 @@ const DesktopIcon = ({ icon, label, onActivate, defaultPosition }) => {
   const nodeRef = useRef(null);
   let lastTap = 0;
 
-  // Handles double-tap on mobile
-  const handleTouch = () => {
+  const handleTouchOrClick = (e) => {
     const now = Date.now();
-    if (now - lastTap < 300) {
-      onActivate(); // double-tap detected
+
+    if ("ontouchstart" in window) {
+      // Mobile: detect double-tap
+      if (now - lastTap < 300) {
+        onActivate && onActivate(e); // double-tap
+        lastTap = 0; // reset
+      } else {
+        lastTap = now;
+      }
+    } else {
+      // Desktop: single click activates immediately
+      onActivate && onActivate(e);
     }
-    lastTap = now;
   };
 
   return (
@@ -19,10 +27,9 @@ const DesktopIcon = ({ icon, label, onActivate, defaultPosition }) => {
       <div
         ref={nodeRef}
         className="absolute w-20 flex flex-col items-center cursor-pointer select-none group"
-        onClick={() => {
-          if (!("ontouchstart" in window)) onActivate(); // desktop click
-        }}
-        onTouchEnd={handleTouch} // mobile double-tap
+        onClick={handleTouchOrClick}
+        onTouchEnd={handleTouchOrClick}
+        style={{ touchAction: "manipulation" }} // improves touch responsiveness
       >
         {/* Icon Wrapper */}
         <div
