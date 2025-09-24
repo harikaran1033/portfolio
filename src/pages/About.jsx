@@ -63,7 +63,7 @@ const About = ({ openWindows, setOpenWindows }) => {
       {!openWindows.about?.length && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x shadow-lg">
-            Tap or double-click a folder to explore About Me!
+            Tap or click a folder to explore About Me!
           </h1>
           <p className="mt-3 text-gray-300 text-sm md:text-base animate-pulse">
             Click and see live demos and drafts

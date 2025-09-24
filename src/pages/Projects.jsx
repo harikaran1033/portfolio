@@ -22,17 +22,17 @@ const Projects = ({ openWindows, setOpenWindows }) => {
 
   return (
     <div className="relative w-screen h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 pt-20 pl-6 overflow-hidden justify-center items-center">
-      
+
       {/* Empty state */}
       {(!openWindows.projects || openWindows.projects.length === 0) && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent 
                    bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 
                    animate-gradient-x shadow-lg">
-            Double-click or tap a folder to explore my projects!
+            Tap or click a folder to explore my projects!
           </h1>
           <p className="mt-3 text-gray-300 text-sm md:text-base animate-pulse">
-            Click, double-click, or double-tap to open
+            Click to open
           </p>
         </div>
       )}
@@ -45,7 +45,6 @@ const Projects = ({ openWindows, setOpenWindows }) => {
           onActivate={() => addFolder("projects", "weatherapp")}
           defaultPosition={{ x: 20, y: 20 }}
         />
-
         <DesktopIcon
           icon={folderIcon}
           label="AuctionPlay"
@@ -90,14 +89,11 @@ const Projects = ({ openWindows, setOpenWindows }) => {
           closeFolder={() => closeFolder("projects","auctionplay")}
         >
           <div className="space-y-4 text-gray-900">
-            {/* Project Info */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h2 className="text-lg font-semibold">AuctionPlay 🎮</h2>
               <p>A real-time multiplayer auction game where players join rooms, bid on players, and see live updates instantly.</p>
               <span className="inline-block mt-2 px-2 py-1 text-xs rounded-full bg-yellow-400/80 text-black font-medium">Draft – Not deployed yet</span>
             </div>
-
-            {/* Tech Stack */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-1">⚙️ Tech Stack</h3>
               <ul className="list-disc pl-5 text-sm">
@@ -106,8 +102,6 @@ const Projects = ({ openWindows, setOpenWindows }) => {
                 <li>Multiplayer rooms & real-time syncing</li>
               </ul>
             </div>
-
-            {/* Features */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-1">✨ Features</h3>
               <ul className="list-disc pl-5 text-sm">
@@ -117,8 +111,6 @@ const Projects = ({ openWindows, setOpenWindows }) => {
                 <li>Firebase used for syncing and storing bids</li>
               </ul>
             </div>
-
-            {/* Screenshots */}
             <div className="p-3 bg-white/90 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-2">🖼️ Preview</h3>
               <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
