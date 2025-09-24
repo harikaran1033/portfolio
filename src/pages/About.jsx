@@ -59,7 +59,7 @@ const About = ({ openWindows, setOpenWindows }) => {
   return (
     <div className="relative w-screen h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 pt-20 pl-6 overflow-hidden justify-center items-center">
 
-      {/* Desktop Icons */}
+      {/* Empty state */}
       {!openWindows.about?.length && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x shadow-lg">
@@ -72,10 +72,10 @@ const About = ({ openWindows, setOpenWindows }) => {
       )}
 
       <div className="w-full h-full">
-        <DesktopIcon icon={homeIcon} label="My Info" onDoubleClick={() => addFolder("about","MyInfo")} defaultPosition={{ x: 20, y: 20 }} />
-        <DesktopIcon icon={manIcon} label="Education" onDoubleClick={() => addFolder("about","Education")} defaultPosition={{ x: 20, y: 120 }} />
-        <DesktopIcon icon={folderIcon} label="Skills" onDoubleClick={() => addFolder("about","Skills")} defaultPosition={{ x: 20, y: 220 }} />
-        <DesktopIcon icon={callIcon} label="What I DO" onDoubleClick={() => addFolder("about","description")} defaultPosition={{ x: 20, y: 320 }} />
+        <DesktopIcon icon={homeIcon} label="My Info" onActivate={() => addFolder("about","MyInfo")} defaultPosition={{ x: 20, y: 20 }} />
+        <DesktopIcon icon={manIcon} label="Education" onActivate={() => addFolder("about","Education")} defaultPosition={{ x: 20, y: 120 }} />
+        <DesktopIcon icon={folderIcon} label="Skills" onActivate={() => addFolder("about","Skills")} defaultPosition={{ x: 20, y: 220 }} />
+        <DesktopIcon icon={callIcon} label="What I DO" onActivate={() => addFolder("about","description")} defaultPosition={{ x: 20, y: 320 }} />
       </div>
 
       {/* Windows */}

@@ -1,14 +1,15 @@
 import Draggable from "react-draggable";
 import { useRef } from "react";
 
-const DesktopIcon = ({ icon, label, onDoubleClick, defaultPosition }) => {
+const DesktopIcon = ({ icon, label, onActivate, defaultPosition }) => {
   const nodeRef = useRef(null);
   let lastTap = 0;
 
-  const handleTap = (e) => {
+  // Handles double-tap on mobile
+  const handleTouch = () => {
     const now = Date.now();
     if (now - lastTap < 300) {
-      onDoubleClick && onDoubleClick(e); // double-tap detected
+      onActivate(); // double-tap detected
     }
     lastTap = now;
   };
@@ -18,8 +19,10 @@ const DesktopIcon = ({ icon, label, onDoubleClick, defaultPosition }) => {
       <div
         ref={nodeRef}
         className="absolute w-20 flex flex-col items-center cursor-pointer select-none group"
-        onClick={handleTap}       // handle mobile double-tap
-        onDoubleClick={onDoubleClick} // still works on desktop
+        onClick={() => {
+          if (!("ontouchstart" in window)) onActivate(); // desktop click
+        }}
+        onTouchEnd={handleTouch} // mobile double-tap
       >
         {/* Icon Wrapper */}
         <div

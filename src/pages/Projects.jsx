@@ -20,19 +20,6 @@ const Projects = ({ openWindows, setOpenWindows }) => {
     }));
   };
 
-  // Detect if device is touch
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-  // Double-tap detector for mobile
-  let lastTap = 0;
-  const handleTap = (folderName) => {
-    const now = Date.now();
-    if (now - lastTap < 300) { // double-tap detected
-      addFolder("projects", folderName);
-    }
-    lastTap = now;
-  };
-
   return (
     <div className="relative w-screen h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 pt-20 pl-6 overflow-hidden justify-center items-center">
       
@@ -42,10 +29,10 @@ const Projects = ({ openWindows, setOpenWindows }) => {
           <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent 
                    bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 
                    animate-gradient-x shadow-lg">
-            Double-click a folder to explore my projects!
+            Double-click or tap a folder to explore my projects!
           </h1>
           <p className="mt-3 text-gray-300 text-sm md:text-base animate-pulse">
-            Tap or double-click to open
+            Click, double-click, or double-tap to open
           </p>
         </div>
       )}
@@ -55,16 +42,14 @@ const Projects = ({ openWindows, setOpenWindows }) => {
         <DesktopIcon
           icon={folderIcon}
           label="Weatherapp"
-          onClick={() => isTouchDevice && handleTap("weatherapp")}
-          onDoubleClick={() => !isTouchDevice && addFolder("projects","weatherapp")}
+          onActivate={() => addFolder("projects", "weatherapp")}
           defaultPosition={{ x: 20, y: 20 }}
         />
 
         <DesktopIcon
           icon={folderIcon}
           label="AuctionPlay"
-          onClick={() => isTouchDevice && handleTap("auctionplay")}
-          onDoubleClick={() => !isTouchDevice && addFolder("projects","auctionplay")}
+          onActivate={() => addFolder("projects", "auctionplay")}
           defaultPosition={{ x: 20, y: 120 }}
         />
       </div>
@@ -80,8 +65,8 @@ const Projects = ({ openWindows, setOpenWindows }) => {
             <div className="space-y-3">
               <h2 className="text-2xl font-bold text-gray-900">React Weather App 🌤️</h2>
               <p className="text-gray-700 text-sm md:text-base">
-                A responsive weather application built with React, Tailwind CSS, Framer Motion for smooth animations, and the OpenWeather API. 
-                It shows real-time weather, forecasts, and automatically adjusts for day/night 🌞🌙.
+                A responsive weather application built with React, Tailwind CSS, Framer Motion, and OpenWeather API. 
+                Shows real-time weather, forecasts, and adjusts for day/night automatically 🌞🌙.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
