@@ -105,11 +105,14 @@ const Projects = ({ openWindows, setOpenWindows }) => {
           closeFolder={() => closeFolder("projects","auctionplay")}
         >
           <div className="space-y-4 text-gray-900">
+            {/* Project Info */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h2 className="text-lg font-semibold">AuctionPlay 🎮</h2>
               <p>A real-time multiplayer auction game where players join rooms, bid on players, and see live updates instantly.</p>
               <span className="inline-block mt-2 px-2 py-1 text-xs rounded-full bg-yellow-400/80 text-black font-medium">Draft – Not deployed yet</span>
             </div>
+
+            {/* Tech Stack */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-1">⚙️ Tech Stack</h3>
               <ul className="list-disc pl-5 text-sm">
@@ -118,6 +121,8 @@ const Projects = ({ openWindows, setOpenWindows }) => {
                 <li>Multiplayer rooms & real-time syncing</li>
               </ul>
             </div>
+
+            {/* Features */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-1">✨ Features</h3>
               <ul className="list-disc pl-5 text-sm">
@@ -127,6 +132,8 @@ const Projects = ({ openWindows, setOpenWindows }) => {
                 <li>Firebase used for syncing and storing bids</li>
               </ul>
             </div>
+
+            {/* Screenshots */}
             <div className="p-3 bg-white/90 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-2">🖼️ Preview</h3>
               <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide">

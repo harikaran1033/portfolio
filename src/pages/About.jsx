@@ -18,30 +18,17 @@ import {
 
 const About = ({ openWindows, setOpenWindows }) => {
   const addFolder = (page, name) => {
-    setOpenWindows((prev) => ({
+    setOpenWindows(prev => ({
       ...prev,
       [page]: [...(prev[page] || []), name],
     }));
   };
 
   const closeFolder = (page, name) => {
-    setOpenWindows((prev) => ({
+    setOpenWindows(prev => ({
       ...prev,
-      [page]: prev[page].filter((n) => n !== name),
+      [page]: prev[page].filter(n => n !== name),
     }));
-  };
-
-  // Detect if device is touch
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-  // Double-tap detector for mobile
-  let lastTap = 0;
-  const handleTap = (folderName) => {
-    const now = Date.now();
-    if (now - lastTap < 300) { // double-tap detected
-      addFolder("about", folderName);
-    }
-    lastTap = now;
   };
 
   const details = {
@@ -73,48 +60,22 @@ const About = ({ openWindows, setOpenWindows }) => {
     <div className="relative w-screen h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 pt-20 pl-6 overflow-hidden justify-center items-center">
 
       {/* Desktop Icons */}
-      {(!openWindows.about || openWindows.about.length === 0) && (
+      {!openWindows.about?.length && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent 
-                   bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 
-                   animate-gradient-x shadow-lg">
-            Double-click a folder to explore About Me!
+          <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x shadow-lg">
+            Tap or double-click a folder to explore About Me!
           </h1>
           <p className="mt-3 text-gray-300 text-sm md:text-base animate-pulse">
-            Tap or double-click to open folders
+            Click and see live demos and drafts
           </p>
         </div>
       )}
 
       <div className="w-full h-full">
-        <DesktopIcon
-          icon={homeIcon}
-          label="My Info"
-          onClick={() => isTouchDevice && handleTap("MyInfo")}
-          onDoubleClick={() => !isTouchDevice && addFolder("about","MyInfo")}
-          defaultPosition={{ x: 20, y: 20 }}
-        />
-        <DesktopIcon
-          icon={manIcon}
-          label="Education"
-          onClick={() => isTouchDevice && handleTap("Education")}
-          onDoubleClick={() => !isTouchDevice && addFolder("about","Education")}
-          defaultPosition={{ x: 20, y: 120 }}
-        />
-        <DesktopIcon
-          icon={folderIcon}
-          label="Skills"
-          onClick={() => isTouchDevice && handleTap("Skills")}
-          onDoubleClick={() => !isTouchDevice && addFolder("about","Skills")}
-          defaultPosition={{ x: 20, y: 220 }}
-        />
-        <DesktopIcon
-          icon={callIcon}
-          label="What I DO"
-          onClick={() => isTouchDevice && handleTap("description")}
-          onDoubleClick={() => !isTouchDevice && addFolder("about","description")}
-          defaultPosition={{ x: 20, y: 320 }}
-        />
+        <DesktopIcon icon={homeIcon} label="My Info" onDoubleClick={() => addFolder("about","MyInfo")} defaultPosition={{ x: 20, y: 20 }} />
+        <DesktopIcon icon={manIcon} label="Education" onDoubleClick={() => addFolder("about","Education")} defaultPosition={{ x: 20, y: 120 }} />
+        <DesktopIcon icon={folderIcon} label="Skills" onDoubleClick={() => addFolder("about","Skills")} defaultPosition={{ x: 20, y: 220 }} />
+        <DesktopIcon icon={callIcon} label="What I DO" onDoubleClick={() => addFolder("about","description")} defaultPosition={{ x: 20, y: 320 }} />
       </div>
 
       {/* Windows */}
@@ -122,11 +83,7 @@ const About = ({ openWindows, setOpenWindows }) => {
         <DragWindow title="My Info" closeFolder={() => closeFolder("about","MyInfo")}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
             {Object.entries(details).map(([key, value]) => (
-              <div
-                key={key}
-                className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-md rounded-2xl shadow-lg
-                           hover:scale-105 hover:bg-white/20 transition-all duration-300 cursor-default"
-              >
+              <div key={key} className="flex items-center gap-3 p-4 bg-white/10 backdrop-blur-md rounded-2xl shadow-lg hover:scale-105 hover:bg-white/20 transition-all duration-300 cursor-default">
                 <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 shadow-inner">
                   {key === "Name" && <span className="text-xl font-bold text-blue-400">👤</span>}
                   {key === "Role" && <span className="text-xl font-bold text-green-400">💼</span>}
@@ -147,10 +104,7 @@ const About = ({ openWindows, setOpenWindows }) => {
         <DragWindow title="Education" closeFolder={() => closeFolder("about","Education")}>
           <div className="flex flex-col gap-4">
             {education.map((edu, index) => (
-              <div
-                key={index}
-                className="p-4 bg-white/20 backdrop-blur-md rounded-xl hover:bg-white/40 transition shadow-sm"
-              >
+              <div key={index} className="p-4 bg-white/20 backdrop-blur-md rounded-xl hover:bg-white/40 transition shadow-sm">
                 <p className="text-gray-900 font-semibold">Level: <span className="font-normal">{edu.level}</span></p>
                 <p className="text-gray-900 font-semibold">Institution: <span className="font-normal">{edu.institution}</span></p>
                 <p className="text-gray-900 font-semibold">Duration: <span className="font-normal">{edu.duration}</span></p>
@@ -165,11 +119,7 @@ const About = ({ openWindows, setOpenWindows }) => {
         <DragWindow title="Skills" closeFolder={() => closeFolder("about","Skills")}>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 p-3">
             {skills.map((skill, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center justify-center gap-2 p-4 bg-white/10 backdrop-blur-md rounded-2xl shadow-lg
-                           hover:scale-105 hover:bg-white/20 transition-all duration-300 cursor-default"
-              >
+              <div key={index} className="flex flex-col items-center justify-center gap-2 p-4 bg-white/10 backdrop-blur-md rounded-2xl shadow-lg hover:scale-105 hover:bg-white/20 transition-all duration-300 cursor-default">
                 <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 shadow-inner">
                   <skill.icon className={`w-7 h-7 ${skill.color}`} />
                 </div>
@@ -209,7 +159,6 @@ const About = ({ openWindows, setOpenWindows }) => {
           </div>
         </DragWindow>
       )}
-
     </div>
   );
 };

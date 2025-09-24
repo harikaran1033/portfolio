@@ -3,13 +3,23 @@ import { useRef } from "react";
 
 const DesktopIcon = ({ icon, label, onDoubleClick, defaultPosition }) => {
   const nodeRef = useRef(null);
+  let lastTap = 0;
+
+  const handleTap = (e) => {
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      onDoubleClick && onDoubleClick(e); // double-tap detected
+    }
+    lastTap = now;
+  };
 
   return (
     <Draggable nodeRef={nodeRef} bounds="parent" defaultPosition={defaultPosition}>
       <div
         ref={nodeRef}
         className="absolute w-20 flex flex-col items-center cursor-pointer select-none group"
-        onDoubleClick={onDoubleClick}
+        onClick={handleTap}       // handle mobile double-tap
+        onDoubleClick={onDoubleClick} // still works on desktop
       >
         {/* Icon Wrapper */}
         <div
