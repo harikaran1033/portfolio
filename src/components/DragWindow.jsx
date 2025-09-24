@@ -26,7 +26,8 @@ const DragWindow = ({ title, children, closeFolder }) => {
           
           {/* Close button on left */}
           <button
-            onClick={closeFolder}
+            onClick={closeFolder}         // desktop click
+            onTouchStart={closeFolder}    // mobile touch
             className="absolute left-3 w-3.5 h-3.5 rounded-full bg-red-500 hover:bg-red-600 
                        hover:scale-110 transition-transform shadow-inner"
           />
