@@ -20,11 +20,24 @@ const Projects = ({ openWindows, setOpenWindows }) => {
     }));
   };
 
+  // Detect if device is touch
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  // Double-tap detector for mobile
+  let lastTap = 0;
+  const handleTap = (folderName) => {
+    const now = Date.now();
+    if (now - lastTap < 300) { // double-tap detected
+      addFolder("projects", folderName);
+    }
+    lastTap = now;
+  };
+
   return (
     <div className="relative w-screen h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 pt-20 pl-6 overflow-hidden justify-center items-center">
       
       {/* Empty state */}
-      {openWindows.projects.length === 0 && (
+      {(!openWindows.projects || openWindows.projects.length === 0) && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent 
                    bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 
@@ -32,7 +45,7 @@ const Projects = ({ openWindows, setOpenWindows }) => {
             Double-click a folder to explore my projects!
           </h1>
           <p className="mt-3 text-gray-300 text-sm md:text-base animate-pulse">
-            Click and see live demos and drafts
+            Tap or double-click to open
           </p>
         </div>
       )}
@@ -42,20 +55,22 @@ const Projects = ({ openWindows, setOpenWindows }) => {
         <DesktopIcon
           icon={folderIcon}
           label="Weatherapp"
-          onDoubleClick={() => addFolder("projects","weatherapp")}
+          onClick={() => isTouchDevice && handleTap("weatherapp")}
+          onDoubleClick={() => !isTouchDevice && addFolder("projects","weatherapp")}
           defaultPosition={{ x: 20, y: 20 }}
         />
 
         <DesktopIcon
           icon={folderIcon}
           label="AuctionPlay"
-          onDoubleClick={() => addFolder("projects","auctionplay")}
+          onClick={() => isTouchDevice && handleTap("auctionplay")}
+          onDoubleClick={() => !isTouchDevice && addFolder("projects","auctionplay")}
           defaultPosition={{ x: 20, y: 120 }}
         />
       </div>
 
       {/* Weather App Window */}
-      {openWindows.projects.includes("weatherapp") && (
+      {openWindows.projects?.includes("weatherapp") && (
         <DragWindow
           title="Weather App"
           closeFolder={() => closeFolder("projects","weatherapp")}
@@ -84,20 +99,17 @@ const Projects = ({ openWindows, setOpenWindows }) => {
       )}
 
       {/* AuctionPlay Window */}
-      {openWindows.projects.includes("auctionplay") && (
+      {openWindows.projects?.includes("auctionplay") && (
         <DragWindow
           title="AuctionPlay"
           closeFolder={() => closeFolder("projects","auctionplay")}
         >
           <div className="space-y-4 text-gray-900">
-            {/* Project Info */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h2 className="text-lg font-semibold">AuctionPlay 🎮</h2>
               <p>A real-time multiplayer auction game where players join rooms, bid on players, and see live updates instantly.</p>
               <span className="inline-block mt-2 px-2 py-1 text-xs rounded-full bg-yellow-400/80 text-black font-medium">Draft – Not deployed yet</span>
             </div>
-
-            {/* Tech Stack */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-1">⚙️ Tech Stack</h3>
               <ul className="list-disc pl-5 text-sm">
@@ -106,8 +118,6 @@ const Projects = ({ openWindows, setOpenWindows }) => {
                 <li>Multiplayer rooms & real-time syncing</li>
               </ul>
             </div>
-
-            {/* Features */}
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-1">✨ Features</h3>
               <ul className="list-disc pl-5 text-sm">
@@ -117,8 +127,6 @@ const Projects = ({ openWindows, setOpenWindows }) => {
                 <li>Firebase used for syncing and storing bids</li>
               </ul>
             </div>
-
-            {/* Screenshots */}
             <div className="p-3 bg-white/90 backdrop-blur-md rounded-xl shadow-sm">
               <h3 className="font-semibold mb-2">🖼️ Preview</h3>
               <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide">

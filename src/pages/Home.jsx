@@ -25,7 +25,7 @@ const Home = () => {
         </div>
 
         {/* Social + Resume Buttons */}
-        <div className="flex gap-6 mt-6 justify-center order-2">
+        <div className="flex gap-6 mt-6 justify-center order-2 items-center">
           
           {/* LinkedIn */}
           <a

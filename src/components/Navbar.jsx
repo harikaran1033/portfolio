@@ -20,7 +20,7 @@ export default function Navbar() {
   const [hoverIndex, setHoverIndex] = useState(null);
 
   return (
-    <div className="fixed z-30 w-1/2 justify-around font-orbit md:w-1/3 bottom-6 left-1/2 -translate-x-1/2 flex px-6 py-3 bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl">
+    <div className="fixed z-30 w-3/4 justify-around font-orbit md:w-1/3 bottom-6 left-1/2 -translate-x-1/2 flex px-6 py-3 bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl">
       {items.map((item, index) => {
         const distance = hoverIndex !== null ? Math.abs(hoverIndex - index) : 0;
 

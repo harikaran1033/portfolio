@@ -16,7 +16,7 @@ const DragWindow = ({ title, children, closeFolder }) => {
     >
       <div
         ref={nodeRef}
-        className="absolute w-1/2 h-1/2 rounded-2xl overflow-hidden
+        className="absolute w-3/4 md:w-1/2 h-1/2 rounded-2xl overflow-hidden
                    bg-white/80 backdrop-blur-xl border border-gray-200
                    shadow-[0_8px_30px_rgba(0,0,0,0.3)] active:z-20"
       >
